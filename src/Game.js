@@ -7,6 +7,7 @@ Game.Game = function(g) {
     this.crateBodyXSpeed = -120;
     
     this.gameOver = false;
+    this.score = 0;
 };
 
 Game.Game.prototype = {
@@ -15,7 +16,7 @@ Game.Game.prototype = {
         
         this.input.addPointer();
         
-        this.runner = this.add.sprite(40,0,'sprites','run01');
+        this.runner = this.add.sprite(10,0,'sprites','run01');
         this.runner.animations.add('run',[5,6,7,8,9,10],10,true);
         
         this.ground = this.add.tileSprite(0,250,480,70,'sprites','ground');
@@ -28,6 +29,16 @@ Game.Game.prototype = {
         this.crates.enableBody = true;
         this.crates.physicsBodyType = Phaser.Physics.ARCADE;
        
+        this.scoreLabel = this.add.text(10,10,"SCORE",
+            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "left" });
+        this.scoreText  = this.add.text(10,33,"0",
+            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "left" });
+
+        this.highscoreLabel = this.add.text(350,10,"HIGHSCORE",
+            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
+        this.highscoreText  = this.add.text(350,33,"0",
+            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
+
         this.timer = g.time.create(false);
     },
     
@@ -40,7 +51,7 @@ Game.Game.prototype = {
         g.physics.arcade.collide(this.runner,this.ground);
         g.physics.arcade.collide(this.runner,this.crates,this.hitCrate,null,this);
 
-        if (this.readyToRun && this.runner.x == 100) {
+        if (this.readyToRun && this.runner.x == 40) {
             this.moveTileSprite = true;
         }
         
@@ -48,13 +59,17 @@ Game.Game.prototype = {
             this.ground.tilePosition.x -= this.tileSpriteSpeed;
             this.timer.start();
         }
+
+        if (this.time.now >this.timeOver + 700) {
+            g.state.start('GameOver');
+        }
     },
     
     jump: function() {
         if (this.runner.body.touching.down && this.readyToRun) {
             this.runner.body.velocity.y = -730;
         } else if (this.readyToRun ==  false) {
-            this.game.add.tween(this.runner).to({ x: 100 }, 500, Phaser.Easing.Linear.None,true);
+            this.game.add.tween(this.runner).to({ x: 40 }, 300, Phaser.Easing.Linear.None,true);
             this.readyToRun = true;
             this.runner.animations.play('run');
         }
@@ -77,7 +92,7 @@ Game.Game.prototype = {
     
     hitCrate: function(_r,_c) {
         if (_r.body.touching.down) {
-            _r.body.x = 100;
+            _r.body.x = 40;
         } 
         
         if (_r.body.touching.right) {
@@ -87,15 +102,17 @@ Game.Game.prototype = {
             
             this.moveTileSprite = false;
             this.readyToRun = false;
-            this.runner.x = _r.x - 2;
+            this.runner.x = _r.x - 1;
             this.runner.body.velocity.x = 0;
             this.runner.frame = 4;
-            this.gameOver = true;
+            this.timeOver = this.time.now;
+            //this.game.state.start('GameOver');
         }
     },
     
     incScore: function() {
         this.score = this.score + 1;
+        this.scoreText.text = this.score;
         if (this.score == 10) {
             this.crates.setAll('body.velocity.x',-180);
             this.timer.stop();
@@ -114,9 +131,7 @@ Game.Game.prototype = {
         
         if (this.score == 30) {
             this.timer.stop();
-            this.timer.loop(600,this.addCrate,this);
+            this.timer.loop(850,this.addCrate,this);
         }
-        
-        
     },
 };

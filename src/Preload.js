@@ -7,6 +7,6 @@ Game.Preload.prototype = {
     },
     create: function(g) {},
     update: function(g) {
-        g.state.start('Game');
+        g.state.start('MainMenu');
     },
 };
