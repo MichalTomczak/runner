@@ -73,11 +73,11 @@ Game.Game.prototype = {
     },
     
     create: function(g) {
-        if (this.game.device.desktop) {
-            this.input.onDown.add(this.userPress,this);
-        } else {
-            this.input.pointer1.onDown.add(this.userPress,this);
-        }
+        //if (this.game.device.desktop) {
+            this.input.onTap.add(this.userPress,this);
+        //} else {
+        //    this.input.pointer1.onDown.add(this.userPress,this);
+        //}
         this.timer.loop(600,this.addCrate,this);
         this.timer.start();
     },

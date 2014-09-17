@@ -17,11 +17,12 @@ Game.MainMenu.prototype = {
             {font: "40px Comic Sans MS", fill: "#ddf57f", align: "left" });
 
          this.input.addPointer();
-         if (this.game.device.desktop) {
-            this.input.onDown.add(this.userPress,this);
-         } else {
-            this.input.pointer1.onDown.add(this.userPress,this);
-         }
+//         if (this.game.device.desktop) {
+            this.input.onTap.add(this.userPress,this);
+//         }
+//         else {
+//            this.input.pointer1.onDown.add(this.userPress,this);
+//         }
     },
     update: function(g) {
         //g.state.start('Game');
