@@ -10,11 +10,11 @@ Game.Boot.prototype = {
     preload: function(g) {
         this.load.image('progressbar','img/progressbar.png');
         this.stage.backgroundColor = "#0ccffe";
-        alert("haha");
+
     },
     init: function() {
         this.stage.disableVisibilityChange = true;
-
+        alert("haha");
         if (this.game.device.desktop) {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth  = Game.width;
