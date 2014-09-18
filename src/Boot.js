@@ -42,7 +42,7 @@ Game.Boot.prototype = {
     gameResized: function(width,height) {
         // placeholder
     },
-    enterIncorrectOrientaton: function() {
+    enterIncorrectOrientation: function() {
         Game.orientated = false;
         alert(Game.orientated);
         document.getElementById('orientation').style.display = 'block';
