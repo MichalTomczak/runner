@@ -23,11 +23,7 @@ Game.Boot.prototype = {
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically   = true;
             this.scale.setScreenSize(true);
-<<<<<<< HEAD
             this.scale.refresh();
-=======
-            Game.orientated = true;
->>>>>>> ca67407aa46444295e12a17e34e9060bed1f3a51
         } else {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth  = Game.width;
