@@ -23,6 +23,7 @@ Game.Boot.prototype = {
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically   = true;
             this.scale.setScreenSize(true);
+            Game.orientated = true;
         } else {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth  = Game.width;
@@ -50,6 +51,8 @@ Game.Boot.prototype = {
         document.getElementById('orientation').style.display = 'none';
     },
     update: function(g) {
-        g.state.start('Preload');
+        if (Game.orientated) {
+            g.state.start('Preload');
+        }
     }
 };
