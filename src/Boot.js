@@ -11,7 +11,7 @@ Game.Boot.prototype = {
         this.load.image('progressbar','img/progressbar.png');
         this.stage.backgroundColor = "#0ccffe";
     },
-    create: function(g) {
+    init: function(g) {
         this.stage.disableVisibilityChange = true;
 
         if (this.game.device.desktop) {
@@ -23,6 +23,7 @@ Game.Boot.prototype = {
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically   = true;
             this.scale.setScreenSize(true);
+            this.scale.refresh();
         } else {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth  = Game.width;
@@ -36,6 +37,7 @@ Game.Boot.prototype = {
             this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation,this);
             this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation,this);
             this.scale.setScreenSize(true);
+            this.scale.refresh();
         }
     },
     gameResized: function(width,height) {
@@ -49,7 +51,8 @@ Game.Boot.prototype = {
         Game.orientated = true;
         document.getElementById('orientation').style.display = 'none';
     },
-    update: function(g) {
+    create: function(g) {
         g.state.start('Preload');
-    }
+    },
+    update: function(g) {},
 };
