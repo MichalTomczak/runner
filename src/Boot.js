@@ -24,7 +24,6 @@ Game.Boot.prototype = {
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically   = true;
             this.scale.setScreenSize(true);
-            this.scale.refresh();
         } else {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth  = Game.width;
@@ -38,7 +37,6 @@ Game.Boot.prototype = {
             this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation,this);
             this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation,this);
             this.scale.setScreenSize(true);
-            this.scale.refresh();
         }
         alert("haha");
     },
