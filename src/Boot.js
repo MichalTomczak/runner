@@ -11,7 +11,7 @@ Game.Boot.prototype = {
         this.load.image('progressbar','img/progressbar.png');
         this.stage.backgroundColor = "#0ccffe";
     },
-    init: function(g) {
+    init: function() {
         this.stage.disableVisibilityChange = true;
 
         if (this.game.device.desktop) {
@@ -45,10 +45,12 @@ Game.Boot.prototype = {
     },
     enterIncorrectOrientaton: function() {
         Game.orientated = false;
+        alert(Game.orientated);
         document.getElementById('orientation').style.display = 'block';
     },
     leaveIncorrectOrientation: function() {
         Game.orientated = true;
+        alert(Game.orientated);
         document.getElementById('orientation').style.display = 'none';
     },
     create: function(g) {
