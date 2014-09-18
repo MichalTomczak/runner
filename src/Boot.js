@@ -14,7 +14,7 @@ Game.Boot.prototype = {
     },
     init: function() {
         this.stage.disableVisibilityChange = true;
-        alert("haha");
+
         if (this.game.device.desktop) {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.minWidth  = Game.width;
@@ -40,6 +40,7 @@ Game.Boot.prototype = {
             this.scale.setScreenSize(true);
             this.scale.refresh();
         }
+        alert("haha");
     },
     gameResized: function(width,height) {
         // placeholder
