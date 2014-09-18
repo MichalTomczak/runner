@@ -33,7 +33,6 @@ Game.Boot.prototype = {
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically   = true;
             this.scale.forceOrientation(true,false);
-//            this.scale.hasResized.add(this.gameResized,this);
             this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation,this);
             this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation,this);
             this.scale.setScreenSize(true);
@@ -44,12 +43,10 @@ Game.Boot.prototype = {
     },
     enterIncorrectOrientation: function() {
         Game.orientated = false;
-        alert(Game.orientated);
         document.getElementById('orientation').style.display = 'block';
     },
     leaveIncorrectOrientation: function() {
         Game.orientated = true;
-        alert(Game.orientated);
         document.getElementById('orientation').style.display = 'none';
     },
     create: function(g) {
