@@ -5,5 +5,5 @@ Game.MainMenu.prototype = {
     create: function(g) {},
     update: function(g) {
         g.state.start('Game');
-    },
+    }
 };

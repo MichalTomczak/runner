@@ -15,11 +15,11 @@ Game.Game.prototype = {
         g.physics.startSystem(Phaser.Physics.ARCADE);
         
         this.input.addPointer();
-        
+        // Animacja Kowboja
         this.runner = this.add.sprite(10,0,'sprites','run01');
         this.runner.animations.add('run',[5,6,7,8,9,10],10,true);
-        
-        this.ground = this.add.tileSprite(0,250,480,70,'sprites','ground');
+        //Narysowanie Gruntu
+        this.ground = this.add.tileSprite(0,250,960,70,'sprites','ground');
         
         g.physics.enable([this.runner,this.ground],Phaser.Physics.ARCADE);
         this.ground.body.immovable = true;
@@ -28,7 +28,7 @@ Game.Game.prototype = {
         this.crates = this.add.group();
         this.crates.enableBody = true;
         this.crates.physicsBodyType = Phaser.Physics.ARCADE;
-       
+       // punktacja
         this.scoreLabel = this.add.text(10,10,"SCORE",
             {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "left" });
         this.scoreText  = this.add.text(10,33,"0",
@@ -61,13 +61,13 @@ Game.Game.prototype = {
         }
 
         if (this.time.now >this.timeOver + 700) {
-            g.state.start('GameOver');
+            game.state.start('GameOver');
         }
     },
     
     jump: function() {
         if (this.runner.body.touching.down && this.readyToRun) {
-            this.runner.body.velocity.y = -730;
+            this.runner.body.velocity.y = -730;                     //wysokosc skoku
         } else if (this.readyToRun ==  false) {
             this.game.add.tween(this.runner).to({ x: 40 }, 300, Phaser.Easing.Linear.None,true);
             this.readyToRun = true;
@@ -81,7 +81,7 @@ Game.Game.prototype = {
         if (this.crates.countLiving == 0) { num = 0; } 
         else { num = Math.floor(Math.random()*3); }
         
-        crate = this.crates.create(480,320-70*1.55-70*0.55*num,'sprites',num);
+        crate = this.crates.create(960,320-70*1.55-70*0.55*num,'sprites',num);
         crate.scale.setTo(0.55,0.55);
         crate.checkWorldBounds = true;
         crate.body.velocity.x = this.crateBodyXSpeed;
@@ -106,7 +106,8 @@ Game.Game.prototype = {
             this.runner.body.velocity.x = 0;
             this.runner.frame = 4;
             this.timeOver = this.time.now;
-            //this.game.state.start('GameOver');
+            this.game.state.start('GameOver');
+
         }
     },
     
@@ -133,5 +134,5 @@ Game.Game.prototype = {
             this.timer.stop();
             this.timer.loop(850,this.addCrate,this);
         }
-    },
+    }
 };

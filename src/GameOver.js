@@ -1,7 +1,10 @@
 Game.GameOver = function(g) {};
 
 Game.GameOver.prototype = {
-    preload: function(g) {},
+    preload: function(g) {
+    },
     create: function(g) {},
-    update: function(g) {},
+    update: function(g) {
+        g.state.start('Game');
+    }
 };
