@@ -13,6 +13,10 @@ Game.Game = function(g) {
 
 Game.Game.prototype = {
     preload: function(g) {
+        this.load.image('background', 'img/background.png');
+        this.background = this.add.tileSprite(0, 0, 960, 320, 'background'); //załadowanie i odpalenie tła
+
+
         g.physics.startSystem(Phaser.Physics.ARCADE);
         
         this.input.addPointer();
@@ -20,7 +24,7 @@ Game.Game.prototype = {
         this.runner = this.add.sprite(10,0,'sprites','run01');
         this.runner.animations.add('run',[5,6,7,8,9,10],10,true);
         //Narysowanie Gruntu
-        this.ground = this.add.tileSprite(0,250,960,70,'sprites','ground');
+        this.ground = this.add.tileSprite(0,250,960,70,'sprites','ground');//granica lewa // granica górna // granica prawa //
         
         g.physics.enable([this.runner,this.ground],Phaser.Physics.ARCADE);
         this.ground.body.immovable = true;
@@ -30,10 +34,10 @@ Game.Game.prototype = {
         this.crates.enableBody = true;
         this.crates.physicsBodyType = Phaser.Physics.ARCADE;
        // punktacja
-        this.scoreLabel = this.add.text(10,10,"SCORE",
-            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "left" });
-        this.scoreText  = this.add.text(10,33,"0",
-            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "left" });
+        this.scoreLabel = this.add.text(10,275,"SCORE",
+            {font: "23px Arial bold", fill: "#ff0000", align: "left" });
+        this.scoreText  = this.add.text(100,275,"0",
+            {font: "23px Arial bold", fill: "#ff0000", align: "left" });
 
         /*this.highscoreLabel = this.add.text(820,10,"HIGHSCORE",
             {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
@@ -58,6 +62,7 @@ Game.Game.prototype = {
         
         if (this.moveTileSprite) {
             this.ground.tilePosition.x -= this.tileSpriteSpeed;
+            this.background.tilePosition.x -= this.tileSpriteSpeed/4;
             this.timer.start();
         }
 
