@@ -1,6 +1,6 @@
 Game.Game = function(g) {
     this.readyToRun     = false;
-    this.moveTileSprite = true;
+    this.moveTileSprite = false;
 
     this.score = 0;
     
@@ -13,9 +13,9 @@ Game.Game = function(g) {
 
 Game.Game.prototype = {
     preload: function(g) {
+
         this.load.image('background', 'img/background.png');
         this.background = this.add.tileSprite(0, 0, 960, 320, 'background'); //załadowanie i odpalenie tła
-
 
         g.physics.startSystem(Phaser.Physics.ARCADE);
         
@@ -38,23 +38,22 @@ Game.Game.prototype = {
             {font: "23px Arial bold", fill: "#ff0000", align: "left" });
         this.scoreText  = this.add.text(100,275,"0",
             {font: "23px Arial bold", fill: "#ff0000", align: "left" });
-
-        /*this.highscoreLabel = this.add.text(820,10,"HIGHSCORE",
-            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
-        this.highscoreText  = this.add.text(820,33,"0",
-            {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
-        */
+        //
         this.timer = g.time.create(false);
+
     },
     
     create: function(g) {
-        this.input.onDown.add(this.jump,this);
-        this.timer.loop(1500,this.addCrate,this);
+        this.input.onDown.add(this.jump,this);      //skok po nacisnieciu myszy
+        this.timer.loop(1500,this.addCrate,this);   //dodanie kraty po przejsciu 1500 ms
     },
     
     update: function(g) {
+        //kolizje
         g.physics.arcade.collide(this.runner,this.ground);
         g.physics.arcade.collide(this.runner,this.crates,this.hitCrate,null,this);
+
+
 
         if (this.readyToRun && this.runner.x == 40) {
             this.moveTileSprite = true;
@@ -62,14 +61,14 @@ Game.Game.prototype = {
         
         if (this.moveTileSprite) {
             this.ground.tilePosition.x -= this.tileSpriteSpeed;
-            this.background.tilePosition.x -= this.tileSpriteSpeed/4;
+            this.background.tilePosition.x -= this.tileSpriteSpeed/6;
             this.timer.start();
         }
 
         /*if (this.time.now >this.timeOver + 700) {
         }*/
     },
-    
+
     jump: function() {
         if (this.runner.body.touching.down && this.readyToRun) {
             this.runner.body.velocity.y = -730;                     //wysokosc skoku
@@ -79,7 +78,7 @@ Game.Game.prototype = {
             this.runner.animations.play('run');
         }
     },
-    
+
     addCrate: function() {
         var crate;
         var num;
@@ -111,10 +110,8 @@ Game.Game.prototype = {
             this.runner.body.velocity.x = 0;
             this.runner.frame = 4;
             this.timeOver = this.time.now;
-            //koniec();
             this.state.restart();
             this.readyToRun     = false;
-            this.moveTileSprite = false;
             this.score = 0;
             this.tileSpriteSpeed = 2;
             this.crateBodyXSpeed = -120;
