@@ -7,3 +7,9 @@ game.state.add('Game',Game.Game);
 game.state.add('GameOver',Game.GameOver);
 
 game.state.start('Boot');
+
+koniec = function(){
+
+    Game.Game.prototype.destroy();
+    game.state.start('GameOver');
+}

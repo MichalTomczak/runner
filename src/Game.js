@@ -1,12 +1,13 @@
 Game.Game = function(g) {
     this.readyToRun     = false;
-    this.moveTileSprite = false;
+    this.moveTileSprite = true;
+
     this.score = 0;
     
     this.tileSpriteSpeed = 2;
     this.crateBodyXSpeed = -120;
     
-    this.gameOver = false;
+    //this.gameOver = false;
     this.score = 0;
 };
 
@@ -24,7 +25,7 @@ Game.Game.prototype = {
         g.physics.enable([this.runner,this.ground],Phaser.Physics.ARCADE);
         this.ground.body.immovable = true;
         this.runner.body.gravity.y = 2000;
-        
+
         this.crates = this.add.group();
         this.crates.enableBody = true;
         this.crates.physicsBodyType = Phaser.Physics.ARCADE;
@@ -34,11 +35,11 @@ Game.Game.prototype = {
         this.scoreText  = this.add.text(10,33,"0",
             {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "left" });
 
-        this.highscoreLabel = this.add.text(350,10,"HIGHSCORE",
+        /*this.highscoreLabel = this.add.text(820,10,"HIGHSCORE",
             {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
-        this.highscoreText  = this.add.text(350,33,"0",
+        this.highscoreText  = this.add.text(820,33,"0",
             {font: "23px Trebuchet MS bold", fill: "#ddf57f", align: "right" });
-
+        */
         this.timer = g.time.create(false);
     },
     
@@ -60,9 +61,8 @@ Game.Game.prototype = {
             this.timer.start();
         }
 
-        if (this.time.now >this.timeOver + 700) {
-            game.state.start('GameOver');
-        }
+        /*if (this.time.now >this.timeOver + 700) {
+        }*/
     },
     
     jump: function() {
@@ -106,7 +106,13 @@ Game.Game.prototype = {
             this.runner.body.velocity.x = 0;
             this.runner.frame = 4;
             this.timeOver = this.time.now;
-            this.game.state.start('GameOver');
+            //koniec();
+            this.state.restart();
+            this.readyToRun     = false;
+            this.moveTileSprite = false;
+            this.score = 0;
+            this.tileSpriteSpeed = 2;
+            this.crateBodyXSpeed = -120;
 
         }
     },
