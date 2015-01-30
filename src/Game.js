@@ -22,7 +22,7 @@ Game.Game.prototype = {
         this.input.addPointer();
         // Animacja Kowboja
         this.runner = this.add.sprite(10,0,'sprites','run01');
-        this.runner.animations.add('run',[5,6,7,8,9,10],10,true);
+        this.runner.animations.add('run',[5,6,7,8,9,10],8,true);
         //Narysowanie Gruntu
         this.ground = this.add.tileSprite(0,250,960,70,'sprites','ground');//granica lewa // granica górna // granica prawa //
         
@@ -65,8 +65,6 @@ Game.Game.prototype = {
             this.timer.start();
         }
 
-        /*if (this.time.now >this.timeOver + 700) {
-        }*/
     },
 
     jump: function() {
