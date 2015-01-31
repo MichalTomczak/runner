@@ -36,7 +36,7 @@ Game.Game.prototype = {
        // punktacja
        this.add.text(10,275,"SCORE:",
             {font: "23px Arial black", fill: "#ff0000", align: "left" });
-       this.scoreText  = this.add.text(120,275,"0",
+       this.scoreText  = this.add.text(120,275,"1",
             {font: "23px Arial black", fill: "#ff0000", align: "left" });
         //
        this.add.text(800,275,"LEVEL:",{font: "23px Arial black", fill: "#ff0000", align: "right"});
@@ -125,19 +125,20 @@ Game.Game.prototype = {
     incScore: function() {
         this.score = this.score + 1;
         this.scoreText.text = this.score;
-        this.levelLimiter = 10;
+        this.levelLimiter = 3;
         this.runnerSpeedIncrease = -100;
 
-        if (this.score == this.levelLimiter) {
-            this.levelLimiter += 10;
-            this.poziom.text += 1;
-            this.crates.setAll('body.velocity.x',this.runnerSpeedIncrease);
-            this.crateDistance -=250;
-            this.timer.stop();
-            this.timer.loop(this.crateDistance,this.addCrate,this);
-            this.tileSpriteSpeed += 1;
-            this.crateBodyXSpeed -= 250;
-        }
+            if (this.score == this.levelLimiter) {
+                this.levelLimiter += 3;
+                this.poziom.text = 0;
+                this.poziom.text = this.levelLimiter / 3;
+                //
+                this.crates.setAll('body.velocity.x', this.runnerSpeedIncrease);
+                this.crateDistance -= 250;
+                this.timer.stop();
+                this.timer.loop(this.crateDistance, this.addCrate, this);
+                this.tileSpriteSpeed += 1;
+            }
 
     }
 };
