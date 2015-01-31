@@ -34,18 +34,22 @@ Game.Game.prototype = {
         this.crates.enableBody = true;
         this.crates.physicsBodyType = Phaser.Physics.ARCADE;
        // punktacja
-        this.scoreLabel = this.add.text(10,275,"SCORE",
-            {font: "23px Arial bold", fill: "#ff0000", align: "left" });
-        this.scoreText  = this.add.text(100,275,"0",
-            {font: "23px Arial bold", fill: "#ff0000", align: "left" });
+       this.add.text(10,275,"SCORE:",
+            {font: "23px Arial black", fill: "#ff0000", align: "left" });
+       this.scoreText  = this.add.text(120,275,"0",
+            {font: "23px Arial black", fill: "#ff0000", align: "left" });
         //
-        this.timer = g.time.create(false);
+       this.add.text(800,275,"LEVEL:",{font: "23px Arial black", fill: "#ff0000", align: "right"});
+       this.poziom = this.add.text(900,275,"0",{font: "23px Arial black", fill: "#ff0000", align: "right"});
+       //
+       this.timer = g.time.create(false);
 
     },
     
     create: function(g) {
         this.input.onDown.add(this.jump,this);      //skok po nacisnieciu myszy
-        this.timer.loop(1500,this.addCrate,this);   //dodanie kraty po przejsciu 1500 ms
+        this.crateDistance = 1500;
+        this.timer.loop(this.crateDistance,this.addCrate,this);   //dodanie kraty po przejsciu 1500 ms
     },
     
     update: function(g) {
@@ -91,7 +95,7 @@ Game.Game.prototype = {
         crate.outOfBoundsKill = true;
         crate.body.immovable  = true;
     },
-    
+
     hitCrate: function(_r,_c) {
         if (_r.body.touching.down) {
             _r.body.x = 40;
@@ -116,29 +120,24 @@ Game.Game.prototype = {
 
         }
     },
-    
+    //przyrost poziomu trudnosci
+
     incScore: function() {
         this.score = this.score + 1;
         this.scoreText.text = this.score;
-        if (this.score == 10) {
-            this.crates.setAll('body.velocity.x',-180);
+        this.levelLimiter = 10;
+        this.runnerSpeedIncrease = -100;
+
+        if (this.score == this.levelLimiter) {
+            this.levelLimiter += 10;
+            this.poziom.text += 1;
+            this.crates.setAll('body.velocity.x',this.runnerSpeedIncrease);
+            this.crateDistance -=250;
             this.timer.stop();
-            this.timer.loop(1000,this.addCrate,this);
-            this.tileSpriteSpeed = 3;
-            this.crateBodyXSpeed = -180; 
+            this.timer.loop(this.crateDistance,this.addCrate,this);
+            this.tileSpriteSpeed += 1;
+            this.crateBodyXSpeed -= 250;
         }
-        
-        if (this.score == 20) {
-            this.crates.setAll('body.velocity.x',-240);
-            this.timer.stop();
-            this.timer.loop(900,this.addCrate,this);
-            this.tileSpriteSpeed = 4;
-            this.crateBodyXSpeed = -240;
-        }
-        
-        if (this.score == 30) {
-            this.timer.stop();
-            this.timer.loop(850,this.addCrate,this);
-        }
+
     }
 };
